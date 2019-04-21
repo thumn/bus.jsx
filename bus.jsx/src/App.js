@@ -21,7 +21,12 @@ export class MapContainer extends Component {
 
   componentDidMount() {
     var route = prompt("Please enter a bus route", "51B");
+    this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
     this.fetchBuses(route);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
