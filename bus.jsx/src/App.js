@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ListRoutes from './ListRoutes.jsx';
+import InfoPanel from './Info.jsx';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import 'semantic-ui/dist/semantic.min.css'
 
@@ -65,9 +66,10 @@ export class MapContainer extends Component {
       <div>
         <div style={styles2}>
           <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
+          <InfoPanel />
         </div>
         <div style={styles}>
-          <Map google={this.props.google} 
+          <Map google={this.props.google}
           initialCenter={{
             lat: 37.8719,
             lng: -122.2585
@@ -76,19 +78,19 @@ export class MapContainer extends Component {
             {
               // Maps the bus route data passed in
               this.state.buses &&
-              this.state.buses.map(b => 
+              this.state.buses.map(b =>
                 (
                   <Marker onClick={(e) => this.onMarkerClick(b.CurrentTripId)}
-                          key={b.CurrentTripId} 
+                          key={b.CurrentTripId}
                           position={{lat: b.Latitude, lng: b.Longitude}}
                           icon={{
                             url: "http://www.clipartroo.com/images/104/green-bus-stop-clipart-104115.png",
                             scaledSize: new google.maps.Size(20,20)
                           }}/>
-                )          
+                )
               )
             }
-            
+
 
             <InfoWindow onClose={this.onInfoWindowClose}>
                 <div>
