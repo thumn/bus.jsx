@@ -54,9 +54,18 @@ export class MapContainer extends Component {
       float: "right"
     };
 
+    let styles2 = {
+      width: "30%",
+      float: "left",
+      display: "flex",
+      justifyContent: "center",
+    }
+
     return (
       <div>
-        <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
+        <div style={styles2}>
+          <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
+        </div>
         <div style={styles}>
           <Map google={this.props.google} 
           initialCenter={{
