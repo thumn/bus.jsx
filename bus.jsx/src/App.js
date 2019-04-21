@@ -25,27 +25,47 @@ export class MapContainer extends Component {
   }
 
   render() {
-    return (
-      <Map google={this.props.google} zoom={14}>
-        {
-          // Maps the bus route data passed in
-          this.state.buses &&
-          this.state.buses.map(b => 
-            (
-              <Marker onClick={this.onMarkerClick}
-                      key={b.VehicleId} 
-                      position={{lat: b.Latitude, lng: b.Longitude}}/>
-            )          
-          )
-        }
-        
+    let styles = {
+      zIndex: '-1',
+      width: "50%",
+      position: "fixed"
+    };
 
-        <InfoWindow onClose={this.onInfoWindowClose}>
-            <div>
-              <h1>Placeholder for state</h1>
-            </div>
-        </InfoWindow>
-      </Map>
+    let styles2 = {
+      zIndex: '0',
+      width: "50%",
+      opacity: "0.5",
+      position: "fixed"
+    };
+
+    return (
+      <div>
+        <div style={styles2}>
+        "hello"
+        </div>
+        <div style={styles}>
+          <Map google={this.props.google} zoom={14}>
+            {
+              // Maps the bus route data passed in
+              this.state.buses &&
+              this.state.buses.map(b => 
+                (
+                  <Marker onClick={this.onMarkerClick}
+                          key={b.VehicleId} 
+                          position={{lat: b.Latitude, lng: b.Longitude}}/>
+                )          
+              )
+            }
+            
+
+            <InfoWindow onClose={this.onInfoWindowClose}>
+                <div>
+                  <h1>Placeholder for state</h1>
+                </div>
+            </InfoWindow>
+          </Map>
+        </div>
+      </div>
     );
   }
 }
