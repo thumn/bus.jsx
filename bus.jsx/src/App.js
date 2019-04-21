@@ -27,15 +27,13 @@ export class MapContainer extends Component {
   render() {
     let styles = {
       zIndex: '-1',
-      width: "50%",
-      position: "fixed"
+      width: "50%"
     };
 
     let styles2 = {
       zIndex: '0',
       width: "50%",
-      opacity: "0.5",
-      position: "fixed"
+      opacity: "0.5"
     };
 
     return (
