@@ -14,17 +14,27 @@ export class MapContainer extends Component {
                   };
   }
 
-  async fetchBuses(route) {
+  async fetchBuses() {
+    let route = this.state.current_route;
     // Fetches buses for a specified route from the AC Transit API and updates the buses in state
-    let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
-    let response = await fetch(url);
-    let responseJSON = await response.json();
-    this.setState({buses: responseJSON});
+    if (route) {
+      let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
+      let response = await fetch(url);
+      let responseJSON = await response.json();
+      this.setState({buses: responseJSON});
+    }
   }
 
+  /*
   componentDidMount() {
     var route = prompt("Please enter a bus route", "51B");
     this.fetchBuses(route);
+  }
+  */
+
+  updateCurrentRoute(route) {
+    // Updates the current_route in state and then calls fetchBuses to get new bus locations
+    this.setState({current_route: route}, this.fetchBuses);
   }
 
   render() {
@@ -43,10 +53,10 @@ export class MapContainer extends Component {
     return (
       <div>
         <div style={styles2}>
-          <div onClick={() => this.setState({current_route: "6"})}>"6"</div>
-          <div onClick={() => this.setState({current_route: "36"})}>"36"</div>
-          <div onClick={() => this.setState({current_route: "51B"})}>"51B"</div>
-          <div onClick={() => this.setState({current_route: "F"})}>"F"</div>
+          <div onClick={() => this.updateCurrentRoute("6")}>6</div>
+          <div onClick={() => this.updateCurrentRoute("36")}>36</div>
+          <div onClick={() => this.updateCurrentRoute("51B")}>51B</div>
+          <div onClick={() => this.updateCurrentRoute("F")}>F</div>
         </div>
         <div style={styles}>
           <Map google={this.props.google} zoom={14}>
