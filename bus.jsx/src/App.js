@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-// TODO: replace w/ real data from API transit
-import BusRouteSampleData from "./BusRouteSampleData";
 
 const AC_TRANSIT_API_BASE_URL = "http://api.actransit.org/transit/";
 
@@ -31,7 +29,8 @@ export class MapContainer extends Component {
       <Map google={this.props.google} zoom={14}>
         {
           // Maps the bus route data passed in
-          BusRouteSampleData.map(b => 
+          this.state.buses &&
+          this.state.buses.map(b => 
             (
               <Marker onClick={this.onMarkerClick}
                       key={b.VehicleId} 
