@@ -12,6 +12,7 @@ export class MapContainer extends Component {
   }
 
   async fetchBuses(route) {
+    // Fetches buses for a specified route from the AC Transit API and updates the buses in state
     let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
     let response = await fetch(url);
     let responseJSON = await response.json();
