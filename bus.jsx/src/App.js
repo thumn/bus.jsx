@@ -11,20 +11,16 @@ export class MapContainer extends Component {
     this.state = {buses: null};
   }
 
-  async fetchBuses() {
-    // YOUR CODE HERE
-    // 1. Send a request to the Kanye West API
-    // 2. Parse the Response as JSON
-    // 3. Use the `.quote` property of the JSON
-    //    to update the `quote` field in state.
-    let url = AC_TRANSIT_API_BASE_URL + "route/6/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
+  async fetchBuses(route) {
+    let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
     let response = await fetch(url);
     let responseJSON = await response.json();
     this.setState({buses: responseJSON});
   }
 
   componentDidMount() {
-    this.fetchBuses();
+    var route = prompt("Please enter a bus route", "51B");
+    this.fetchBuses(route);
   }
 
   render() {
