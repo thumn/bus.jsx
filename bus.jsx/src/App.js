@@ -12,7 +12,8 @@ export class MapContainer extends Component {
     super(props);
     this.state = {
                     buses: null,
-                    current_route: null
+                    current_route: null,
+                    current_bus_trip_id: null
                   };
   }
 
@@ -41,15 +42,19 @@ export class MapContainer extends Component {
     this.setState({current_route: route}, this.fetchBuses);
   }
 
+  onMarkerClick(tripId) {
+    this.setState({current_bus_trip_id: tripId});
+  }
+
   render() {
+    const {google} = this.props;
+
     let styles = {
-      zIndex: '-1',
       width: "70%",
       float: "right"
     };
 
     let styles2 = {
-      zIndex: '0',
       opacity: "0.5",
       float: "left"
     };
@@ -75,9 +80,13 @@ export class MapContainer extends Component {
               this.state.buses &&
               this.state.buses.map(b => 
                 (
-                  <Marker onClick={this.onMarkerClick}
-                          key={b.VehicleId} 
-                          position={{lat: b.Latitude, lng: b.Longitude}}/>
+                  <Marker onClick={(e) => this.onMarkerClick(b.CurrentTripId)}
+                          key={b.CurrentTripId} 
+                          position={{lat: b.Latitude, lng: b.Longitude}}
+                          icon={{
+                            url: "http://www.clipartroo.com/images/104/green-bus-stop-clipart-104115.png",
+                            scaledSize: new google.maps.Size(20,20)
+                          }}/>
                 )          
               )
             }
