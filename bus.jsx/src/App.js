@@ -40,6 +40,8 @@ export class MapContainer extends Component {
   }
 
   render() {
+    const {google} = this.props;
+
     let styles = {
       zIndex: '-1',
       width: "70%",
@@ -69,7 +71,11 @@ export class MapContainer extends Component {
                 (
                   <Marker onClick={this.onMarkerClick}
                           key={b.VehicleId} 
-                          position={{lat: b.Latitude, lng: b.Longitude}}/>
+                          position={{lat: b.Latitude, lng: b.Longitude}}
+                          icon={{
+                            url: "http://www.clipartroo.com/images/104/green-bus-stop-clipart-104115.png",
+                            scaledSize: new google.maps.Size(20,20)
+                          }}/>
                 )          
               )
             }
