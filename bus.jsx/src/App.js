@@ -8,7 +8,10 @@ const AC_TRANSIT_API_BASE_URL = "http://api.actransit.org/transit/";
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {buses: null};
+    this.state = {
+                    buses: null,
+                    current_route: null
+                  };
   }
 
   async fetchBuses(route) {
@@ -40,7 +43,10 @@ export class MapContainer extends Component {
     return (
       <div>
         <div style={styles2}>
-        "hello"
+          <div onClick={() => this.setState({current_route: "6"})}>"6"</div>
+          <div onClick={() => this.setState({current_route: "36"})}>"36"</div>
+          <div onClick={() => this.setState({current_route: "51B"})}>"51B"</div>
+          <div onClick={() => this.setState({current_route: "F"})}>"F"</div>
         </div>
         <div style={styles}>
           <Map google={this.props.google} zoom={14}>
