@@ -63,7 +63,12 @@ export class MapContainer extends Component {
           <div onClick={() => this.updateCurrentRoute("F")}>F</div>
         </div>
         <div style={styles}>
-          <Map google={this.props.google} zoom={14}>
+          <Map google={this.props.google} 
+          initialCenter={{
+            lat: 37.8719,
+            lng: -122.2585
+          }}
+          zoom={13}>
             {
               // Maps the bus route data passed in
               this.state.buses &&
