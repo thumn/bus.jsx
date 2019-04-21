@@ -8,21 +8,34 @@ const AC_TRANSIT_API_BASE_URL = "http://api.actransit.org/transit/";
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {buses: null};
+    this.state = {
+                    buses: null,
+                    current_route: null
+                  };
   }
 
-  async fetchBuses(route) {
+  async fetchBuses() {
+    let route = this.state.current_route;
     // Fetches buses for a specified route from the AC Transit API and updates the buses in state
-    let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
-    let response = await fetch(url);
-    let responseJSON = await response.json();
-    this.setState({buses: responseJSON});
+    if (route) {
+      let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
+      let response = await fetch(url);
+      let responseJSON = await response.json();
+      this.setState({buses: responseJSON});
+    }
   }
 
+  /*
   componentDidMount() {
     var route = prompt("Please enter a bus route", "51B");
     this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
     this.fetchBuses(route);
+  }
+  */
+
+  updateCurrentRoute(route) {
+    // Updates the current_route in state and then calls fetchBuses to get new bus locations
+    this.setState({current_route: route}, this.fetchBuses);
   }
 
   componentWillUnmount() {
@@ -32,19 +45,23 @@ export class MapContainer extends Component {
   render() {
     let styles = {
       zIndex: '-1',
-      width: "50%"
+      width: "70%",
+      float: "right"
     };
 
     let styles2 = {
       zIndex: '0',
-      width: "50%",
-      opacity: "0.5"
+      opacity: "0.5",
+      float: "left"
     };
 
     return (
       <div>
         <div style={styles2}>
-        "hello"
+          <div onClick={() => this.updateCurrentRoute("6")}>6</div>
+          <div onClick={() => this.updateCurrentRoute("36")}>36</div>
+          <div onClick={() => this.updateCurrentRoute("51B")}>51B</div>
+          <div onClick={() => this.updateCurrentRoute("F")}>F</div>
         </div>
         <div style={styles}>
           <Map google={this.props.google} zoom={14}>
