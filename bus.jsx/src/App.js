@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ListRoutes from './ListRoutes.jsx';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import 'semantic-ui-css/semantic.min.css'
 
 const AC_TRANSIT_API_BASE_URL = "http://api.actransit.org/transit/";
 
@@ -54,12 +56,13 @@ export class MapContainer extends Component {
 
     return (
       <div>
-        <div style={styles2}>
-          <div onClick={() => this.updateCurrentRoute("6")}>6</div>
-          <div onClick={() => this.updateCurrentRoute("36")}>36</div>
-          <div onClick={() => this.updateCurrentRoute("51B")}>51B</div>
-          <div onClick={() => this.updateCurrentRoute("F")}>F</div>
-        </div>
+        {/* <div style={styles2}>
+          <div onClick={() => this.updateCurrentRoute("6")}><CurrentRoute route="6" desc="Downtown Oakland/Downtown Berkeley"/></div>
+          <div onClick={() => this.updateCurrentRoute("36")}><CurrentRoute route="36" desc="West Oakland/UC Berkeley"/></div>
+          <div onClick={() => this.updateCurrentRoute("51B")}><CurrentRoute route="51B" desc="Rockridge/Berkeley Amtrak"/></div>
+          <div onClick={() => this.updateCurrentRoute("F")}><CurrentRoute route="F" desc="San Francisco/Berkeley"/></div>
+        </div> */}
+        <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
         <div style={styles}>
           <Map google={this.props.google} 
           initialCenter={{
