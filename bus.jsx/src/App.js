@@ -25,21 +25,18 @@ export class MapContainer extends Component {
     }
   }
 
-  /*
   componentDidMount() {
-    var route = prompt("Please enter a bus route", "51B");
-    this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
-    this.fetchBuses(route);
-  }
-  */
-
-  updateCurrentRoute(route) {
-    // Updates the current_route in state and then calls fetchBuses to get new bus locations
-    this.setState({current_route: route}, this.fetchBuses);
+    // var route = prompt("Please enter a bus route", "51B");
+    this.interval = setInterval(() => this.fetchBuses(this.state.current_route), 5000);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
+  }
+
+  updateCurrentRoute(route) {
+    // Updates the current_route in state and then calls fetchBuses to get new bus locations
+    this.setState({current_route: route}, this.fetchBuses);
   }
 
   render() {
