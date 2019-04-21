@@ -33,7 +33,6 @@ export class MapContainer extends Component {
 
     let styles2 = {
       zIndex: '0',
-      width: "10%",
       opacity: "0.5",
       float: "left"
     };
