@@ -1,28 +1,54 @@
-import React from 'react';
+import React, {Component} from 'react';
+import Tab from './Tabs';
 
-class Info extends React.Component {
+class Info extends Component {
   constructor(props) {
     super(props);
+    this.clickTab = this.clickTab.bind(this);
+
     this.state = {
-      tab: 'Info'
+      activeTab: this.props.children[0].props.label,
     };
   }
 
+  clickTab(tab) {
+    this.setState({activeTab: tab});
+  }
+
   render() {
-    return(
-    <div>
-      <div class="ui top attached tabular menu">
-      <a class="active item" data-tab="info">Information</a>
-      <a class="item" data-tab="stops">Stops</a>
-    </div>
-    <div class="ui bottom attached active tab segment" data-tab="info">
-      Information
-    </div>
-    <div class="ui bottom attached tab segment" data-tab="stops">
-      Stops
-    </div>
-  </div>
-    );
+    const {
+      clickTab,
+      props: {
+        children,
+      },
+      state: {
+        activeTab,
+      }
+    } = this;
+
+    return (
+      <div className="tabs">
+        <o1 className="tab-list">
+          {children.map((child) => {
+            const{ label} = child.props;
+
+            return(<Tab
+              activeTab={activeTab}
+              key={label}
+              label={label}
+              onClick={clickTab}
+              />
+            );
+          })}
+        </o1>
+        <div className="tab-content">
+          {children.map((child) => {
+            if (child.props.label !== activeTab) return undefined;
+            return child.props.children;
+          })}
+        </div>
+      </div>
+    )
   }
 }
 

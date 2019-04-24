@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import {render} from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 import ListRoutes from './ListRoutes.jsx';
 import InfoPanel from './Info.jsx';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import 'semantic-ui/dist/semantic.min.css'
+import 'semantic-ui/dist/semantic.min.css';
 
 const AC_TRANSIT_API_BASE_URL = "http://api.actransit.org/transit/";
 
@@ -59,7 +60,16 @@ export class MapContainer extends Component {
       <div>
         <div>
           <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
-          <InfoPanel />
+        </div>
+        <div>
+          <InfoPanel>
+              <div label="Info">
+                  Insert Information Here
+              </div>
+              <div label="Routes">
+                  Insert Routes Here
+              </div>
+          </InfoPanel>
         </div>
         <div style={styles}>
           <Map google={this.props.google}
