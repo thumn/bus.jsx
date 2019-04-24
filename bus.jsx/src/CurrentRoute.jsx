@@ -5,14 +5,9 @@ import React from "react";
 const CurrentRoute = props => {
     
     return (
-        <div class="ui labeled button" tabindex="0">
-            <div class="ui button">
-                {props.route}
-            </div>
-            <a class="ui basic label">
-                {props.desc}
-            </a>
-        </div>
+        <button className={`ui button ${ props.active }`}>
+            {props.route}: {props.desc}
+        </button>
     );
 };
 
