@@ -115,7 +115,7 @@ export class MapContainer extends Component {
                 <div label="Info">
                     {this.state.description}
                 </div>
-                <div label="Routes">
+                <div label="Stops">
                     <StopList stops={this.state.stops} />
                 </div>
             </InfoPanel>
