@@ -76,7 +76,7 @@ export class MapContainer extends Component {
   updateCurrentRoute(route) {
     // Updates the current_route in state and then calls fetchBuses to get new bus locations
     this.setState({current_route: route,
-                    stops: 'Select a bus'}, this.fetchBuses);
+                    stops: null}, this.fetchBuses);
     this.getInfo();
   }
 

@@ -6,7 +6,7 @@ const StopList = props => {
         <div class="ui list">
     	{
           // Maps the bus route data passed in
-          props.stops &&
+          props.stops ?  
           props.stops.map(stop =>
             (
               <div class="item">
@@ -17,7 +17,8 @@ const StopList = props => {
 			    </div>
 			  </div>
             )
-          )
+          ) : 
+          <div>Click on a bus to see its stops</div>
         }
 		</div>
     );
