@@ -15,7 +15,9 @@ export class MapContainer extends Component {
     this.state = {
                     buses: null,
                     current_route: null,
-                    current_bus_trip_id: null
+                    current_bus_trip_id: null,
+                    description: 'Select a Route',
+                    stops:'Select a Bus'
                   };
   }
 
@@ -30,6 +32,36 @@ export class MapContainer extends Component {
     }
   }
 
+  async getInfo() {
+    let route = this.state.current_route;
+    // Fetches buses for a specified route from the AC Transit API and updates the buses in state
+    if (route) {
+      let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
+      let response = await fetch(url);
+      let responseJSON = await response.json();
+      let description = responseJSON['Description'];
+      let locations = description.split(/[-|\\\\]+/);
+      this.setState({description: locations.join("\n")});
+    }
+  }
+
+  async getStops() {
+    let route = this.state.current_route;
+    let bus = this.state.current_bus_trip_id;
+    // Fetches buses for a specified route from the AC Transit API and updates the buses in state
+    if (route) {
+      let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/trip/" + bus + "/stops/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
+      console.log(url);
+      let response = await fetch(url);
+      let responseJSON = await response.json();
+      let names = []
+      for(let i = 0; i  < responseJSON.length; i++) {
+            names.push(responseJSON[i]["Name"]);
+      }
+      this.setState({stops: names.join("\n")});
+    }
+  }
+
   componentDidMount() {
     // var route = prompt("Please enter a bus route", "51B");
     this.interval = setInterval(() => this.fetchBuses(this.state.current_route), 5000);
@@ -41,11 +73,14 @@ export class MapContainer extends Component {
 
   updateCurrentRoute(route) {
     // Updates the current_route in state and then calls fetchBuses to get new bus locations
-    this.setState({current_route: route}, this.fetchBuses);
+    this.setState({current_route: route,
+                    stops: 'Select a bus'}, this.fetchBuses);
+    this.getInfo();
   }
 
   onMarkerClick(tripId) {
     this.setState({current_bus_trip_id: tripId});
+    this.getStops();
   }
 
   render() {
@@ -66,17 +101,17 @@ export class MapContainer extends Component {
     return (
       <div>
         <div style={styles2}>
-          <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
+          <div><ListRoutes onClick={(route) => this.updateCurrentRoute(route)} /></div>
+            <div>
+              <InfoPanel>
+                  <div label="Info">
+                      {this.state.description}
+                  </div>
+                  <div label="Routes">
+                      {this.state.stops}
+                  </div>
+              </InfoPanel>
         </div>
-        <div>
-          <InfoPanel>
-              <div label="Info">
-                  Insert Information Here
-              </div>
-              <div label="Routes">
-                  Insert Routes Here
-              </div>
-          </InfoPanel>
         </div>
         <div style={styles}>
           <Map google={this.props.google}
