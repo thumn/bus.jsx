@@ -2,7 +2,7 @@ import React from "react";
 
 // props: current_route (i.e. 51B, 6, etc.)
 // props: current_route name
-const CurrentRoute = props => {
+const Route = props => {
     
     return (
         <button className={`ui button ${ props.active }`}>
@@ -11,4 +11,4 @@ const CurrentRoute = props => {
     );
 };
 
-export default CurrentRoute;
+export default Route;
