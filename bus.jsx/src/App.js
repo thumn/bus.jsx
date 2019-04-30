@@ -17,7 +17,7 @@ export class MapContainer extends Component {
                     buses: null,
                     current_route: null,
                     current_bus_trip_id: null,
-                    description: 'Select a Route',
+                    current_bus_info: null,
                     stops: null
                   };
   }
@@ -41,7 +41,6 @@ export class MapContainer extends Component {
 
   async getInfo() {
     let route = this.state.current_route;
-    // Fetches buses for a specified route from the AC Transit API and updates the buses in state
     if (route) {
       let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
       let response = await fetch(url);
@@ -73,16 +72,20 @@ export class MapContainer extends Component {
     clearInterval(this.interval);
   }
 
+  updateCurrentBusInformation() {
+    this.getInfo();
+    this.getStops();
+  }
+
   updateCurrentRoute(route) {
     // Updates the current_route in state and then calls fetchBuses to get new bus locations
     this.setState({current_route: route,
                     stops: null}, this.fetchBuses);
-    this.getInfo();
+
   }
 
   onMarkerClick(tripId) {
-    this.setState({current_bus_trip_id: tripId});
-    this.getStops();
+    this.setState({current_bus_trip_id: tripId}, this.updateCurrentBusInformation);
   }
 
   render() {
