@@ -56,7 +56,6 @@ export class MapContainer extends Component {
     // Fetches buses for a specified route from the AC Transit API and updates the buses in state
     if (route) {
       let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/trip/" + bus + "/stops/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
-      console.log(url);
       let response = await fetch(url);
       let responseJSON = await response.json();
       this.setState({stops: responseJSON});
@@ -64,7 +63,6 @@ export class MapContainer extends Component {
   }
 
   componentDidMount() {
-    // var route = prompt("Please enter a bus route", "51B");
     this.interval = setInterval(() => this.fetchBuses(this.state.current_route), 5000);
   }
 
