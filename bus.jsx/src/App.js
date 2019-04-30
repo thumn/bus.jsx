@@ -60,8 +60,11 @@ export class MapContainer extends Component {
       let response = await fetch(url);
       let responseJSON = await response.json();
       let names = []
+      let times = []
       for(let i = 0; i  < responseJSON.length; i++) {
             names.push(responseJSON[i]["Name"]);
+            console.log(responseJSON[i]["ScheduledTime"]);
+            times.push(responseJSON[i]["ScheduledTime"]);
       }
       this.setState({stops: names.join("\n")});
     }
@@ -101,22 +104,28 @@ export class MapContainer extends Component {
       float: "left",
       display: "flex",
       justifyContent: "center",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "auto", 
+      width: "auto"
     }
 
     return (
       <div>
         <div style={styles2}>
-          <div><ListRoutes onClick={(route) => this.updateCurrentRoute(route)} /></div>
-            <div>
-              <InfoPanel>
-                  <div label="Info">
-                      {this.state.description}
-                  </div>
-                  <div label="Routes">
-                      {this.state.stops}
-                  </div>
-              </InfoPanel>
-        </div>
+          <div>
+            <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
+          </div>
+          <div>
+            <InfoPanel>
+                <div label="Info">
+                    {this.state.description}
+                </div>
+                <div label="Routes">
+                    {this.state.stops}
+                </div>
+            </InfoPanel>
+          </div>
         </div>
         <div style={styles}>
           <Map google={this.props.google}

@@ -7,7 +7,7 @@ const ListRoutes = props => {
     return (
         <div>
         <h1 className="ui header" style={{textAlign: "center", padding: "10px"}}>BUS ROUTES</h1>
-            <div className="wide ui left floated vertical labeled buttons">
+            <div className="ui vertical buttons">
                     <div onClick={() => props.onClick("6")}><CurrentRoute route="6" active="false" desc="Downtown Oakland/Downtown Berkeley"/></div>
                     <div onClick={() => props.onClick("36")}><CurrentRoute route="36" active="false" desc="West Oakland/UC Berkeley"/></div>
                     <div onClick={() => props.onClick("51B")}><CurrentRoute route="51B" active="false" desc="Rockridge/Berkeley Amtrak"/></div>
