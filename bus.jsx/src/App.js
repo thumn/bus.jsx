@@ -26,9 +26,15 @@ export class MapContainer extends Component {
     // Fetches buses for a specified route from the AC Transit API and updates the buses in state
     if (route) {
       let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/vehicles/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
-      let response = await fetch(url);
-      let responseJSON = await response.json();
-      this.setState({buses: responseJSON});
+      try {
+        let response = await fetch(url);
+        let responseJSON = await response.json();
+        this.setState({buses: responseJSON});
+      }
+      catch (error) {
+        // TODO: Make into a more noticeable failure messsage
+        console.log("The API seems to be down right now. Try again later!");
+      }
     }
   }
 
@@ -41,7 +47,6 @@ export class MapContainer extends Component {
       let responseJSON = await response.json();
       let description = responseJSON['Description'];
       let locations = description.split(/[-|\\\\]+/);
-      this.setState({description: locations.join("\n")});
     }
   }
 
