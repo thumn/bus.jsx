@@ -16,7 +16,6 @@ export class MapContainer extends Component {
     this.state = {
                     buses: null,
                     current_route: null,
-                    current_bus_trip_id: null,
                     current_bus_info: null,
                     stops: null
                   };
@@ -39,20 +38,9 @@ export class MapContainer extends Component {
     }
   }
 
-  async getInfo() {
-    let route = this.state.current_route;
-    if (route) {
-      let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
-      let response = await fetch(url);
-      let responseJSON = await response.json();
-      let description = responseJSON['Description'];
-      let locations = description.split(/[-|\\\\]+/);
-    }
-  }
-
   async getStops() {
     let route = this.state.current_route;
-    let bus = this.state.current_bus_trip_id;
+    let bus = this.state.current_bus_info["CurrentTripId"];
     // Fetches buses for a specified route from the AC Transit API and updates the buses in state
     if (route) {
       let url = AC_TRANSIT_API_BASE_URL + "route/" + route + "/trip/" + bus + "/stops/?token=" + process.env.REACT_APP_AC_TRANSIT_API_KEY;
@@ -70,11 +58,6 @@ export class MapContainer extends Component {
     clearInterval(this.interval);
   }
 
-  updateCurrentBusInformation() {
-    this.getInfo();
-    this.getStops();
-  }
-
   updateCurrentRoute(route) {
     // Updates the current_route in state and then calls fetchBuses to get new bus locations
     this.setState({current_route: route,
@@ -82,8 +65,8 @@ export class MapContainer extends Component {
 
   }
 
-  onMarkerClick(tripId) {
-    this.setState({current_bus_trip_id: tripId}, this.updateCurrentBusInformation);
+  onMarkerClick(busInfo) {
+    this.setState({current_bus_info: busInfo}, this.getStops);
   }
 
   render() {
@@ -134,7 +117,7 @@ export class MapContainer extends Component {
               this.state.buses &&
               this.state.buses.map(b =>
                 (
-                  <Marker onClick={(e) => this.onMarkerClick(b.CurrentTripId)}
+                  <Marker onClick={(e) => this.onMarkerClick(b)}
                           key={b.CurrentTripId}
                           position={{lat: b.Latitude, lng: b.Longitude}}
                           icon={{

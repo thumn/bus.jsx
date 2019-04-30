@@ -9,7 +9,7 @@ const StopList = props => {
           props.stops ?  
           props.stops.map(stop =>
             (
-              <div class="item">
+              <div class="item" key={stop["StopId"]}>
 			    <i class="map marker icon"></i>
 			    <div class="content">
 			      <a class="header">{stop["Name"].replace(":", " & ")}</a>
