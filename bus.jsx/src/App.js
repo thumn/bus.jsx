@@ -18,7 +18,7 @@ export class MapContainer extends Component {
                     current_route: null,
                     current_bus_trip_id: null,
                     description: 'Select a Route',
-                    stops:'Select a Bus'
+                    stops: null
                   };
   }
 
@@ -60,14 +60,7 @@ export class MapContainer extends Component {
       console.log(url);
       let response = await fetch(url);
       let responseJSON = await response.json();
-      let names = []
-      let times = []
-      for(let i = 0; i  < responseJSON.length; i++) {
-            names.push(responseJSON[i]["Name"]);
-            console.log(responseJSON[i]["ScheduledTime"]);
-            times.push(responseJSON[i]["ScheduledTime"]);
-      }
-      this.setState({stops: names.join("\n")});
+      this.setState({stops: responseJSON});
     }
   }
 
