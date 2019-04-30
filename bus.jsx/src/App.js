@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 import ListRoutes from './ListRoutes.jsx';
-import InfoPanel from './Info.jsx';
+import InfoPanel from './InfoPanel.jsx';
 import StopList from "./StopList.jsx"
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import 'semantic-ui/dist/semantic.min.css';

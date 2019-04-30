@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Tab from './Tabs';
 
-class Info extends Component {
+class InfoPanel extends Component {
   constructor(props) {
     super(props);
     this.clickTab = this.clickTab.bind(this);
@@ -52,4 +52,4 @@ class Info extends Component {
   }
 }
 
-export default Info
+export default InfoPanel
