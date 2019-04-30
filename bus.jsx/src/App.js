@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import ListRoutes from './ListRoutes.jsx';
 import InfoPanel from './Info.jsx';
+import StopList from "./StopList.jsx"
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import 'semantic-ui/dist/semantic.min.css';
 
@@ -122,7 +123,7 @@ export class MapContainer extends Component {
                     {this.state.description}
                 </div>
                 <div label="Routes">
-                    {this.state.stops}
+                    <StopList stops={this.state.stops} />
                 </div>
             </InfoPanel>
           </div>
