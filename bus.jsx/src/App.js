@@ -73,25 +73,18 @@ export class MapContainer extends Component {
   render() {
     const {google} = this.props;
 
-    let styles = {
+    let info_style = {
+      width: "20%",
+    }
+
+    let map_style = {
       width: "70%",
       float: "right"
     };
 
-    let styles2 = {
-      width: "30%",
-      float: "left",
-      display: "flex",
-      justifyContent: "center",
-      marginLeft: "auto",
-      marginRight: "auto",
-      height: "auto", 
-      width: "auto"
-    }
-
     return (
       <div>
-        <div style={styles2}>
+        <div style={info_style}>
           <div>
             <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
           </div>
@@ -106,7 +99,7 @@ export class MapContainer extends Component {
             </InfoPanel>
           </div>
         </div>
-        <div style={styles}>
+        <div style={map_style}>
           <Map google={this.props.google}
           initialCenter={{
             lat: 37.8719,

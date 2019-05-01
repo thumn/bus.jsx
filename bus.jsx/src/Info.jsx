@@ -13,7 +13,7 @@ const Info = props => {
                 <div class="content">
                   {props.currentRoute}
                 </div>
-                <div class="sub header">To: {props.stops[props.stops.length - 1]["Name"].replace(":", " and ")}</div>
+                <div class="sub header">To: {props.stops[props.stops.length - 1]["Name"].replace(":", " & ")}</div>
               </h2>
               <h3 class="ui header">
                 Trip ID
