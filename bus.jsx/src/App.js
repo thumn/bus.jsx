@@ -82,8 +82,12 @@ export class MapContainer extends Component {
       float: "right"
     };
 
+    let top_level_style = {
+      display: "flex"
+    }
+
     return (
-      <div>
+      <div style={top_level_style}>
         <div style={info_style}>
           <div>
             <ListRoutes onClick={(route) => this.updateCurrentRoute(route)} />
