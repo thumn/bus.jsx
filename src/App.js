@@ -9,7 +9,7 @@ import StopList from "./StopList.jsx";
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import 'semantic-ui/dist/semantic.min.css';
 
-const AC_TRANSIT_API_BASE_URL = "http://api.actransit.org/transit/";
+const AC_TRANSIT_API_BASE_URL = "https://api.actransit.org/transit/";
 
 export class MapContainer extends Component {
   constructor(props) {
