@@ -74,7 +74,7 @@ export class MapContainer extends Component {
     const {google} = this.props;
 
     let info_style = {
-      width: "20%",
+      width: "25%",
     }
 
     let map_style = {
